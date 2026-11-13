@@ -1,108 +1,15 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Multimedia en HTML: imagen, vídeo y audio</title>
-<meta name="description" content="Demostración de imágenes responsivas, vídeo con subtítulos y audio con HTML puro.">
 <style>
-  :root {
-    --bg: #eee9f7; --ink: #2a1b3d; --muted: #5d4e73;
-    --accent: #a02d83; --leaf: #3f5a2e; --panel: #f8f5fd; --line: #cfc4e3;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root { --bg: #1d1429; --ink: #efe9f9; --muted: #b7a8cf;
-            --accent: #e27bc4; --leaf: #9cc47d; --panel: #281d38; --line: #44345c; }
-  }
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body { margin: 0; background: var(--bg); color: var(--ink);
-    font: 1.0625rem/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; }
-  img, video { display: block; max-width: 100%; height: auto; }
-  a { color: var(--accent); }
-  :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
-  .wrap { width: min(100% - 2rem, 46rem); margin-inline: auto; }
-  header { padding: 4rem 0 2rem; }
-  h1 { font: 700 clamp(2.4rem, 8vw, 4.2rem)/1.02 Palatino, "Palatino Linotype", Georgia, serif;
-    margin: 0 0 1rem; letter-spacing: -.02em; }
-  h2 { font: 700 1.7rem/1.2 Palatino, "Palatino Linotype", Georgia, serif; margin: 0 0 .5rem; }
-  .lead { color: var(--muted); max-width: 36rem; margin: 0; }
-  nav ul { list-style: none; display: flex; flex-wrap: wrap; gap: .5rem 1.25rem; padding: 0; margin: 1.5rem 0 0; }
-  section { padding: 2.5rem 0; border-top: 2px solid var(--line); }
-  section p { max-width: 38rem; }
-  figure { margin: 1.25rem 0 0; }
-  figure img, video { border-radius: .5rem; width: 100%; }
-  figcaption { color: var(--muted); font-size: .95rem; margin-top: .6rem; }
-  audio { width: 100%; margin-top: 1rem; }
-  code { background: var(--panel); border: 1px solid var(--line); padding: .05em .35em; border-radius: .25rem; font-size: .92em; }
-  pre { background: var(--panel); border: 1px solid var(--line); border-radius: .5rem; padding: 1rem; overflow-x: auto; font-size: .88rem; line-height: 1.5; }
-  footer { padding: 2rem 0 4rem; color: var(--muted); font-size: .95rem; border-top: 2px solid var(--line); }
-  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  img { display: block; max-width: 100%; height: auto; }
 </style>
-</head>
-<body>
-<header class="wrap">
-  <h1>Imagen, vídeo y audio con HTML puro</h1>
-  <p class="lead">Tres ejemplos prácticos, sin librerías: una imagen que se adapta a la pantalla, un vídeo con subtítulos y un audio con formatos alternativos.</p>
-  <nav aria-label="Secciones">
-    <ul>
-      <li><a href="#imagen">Imagen</a></li>
-      <li><a href="#video">Vídeo</a></li>
-      <li><a href="#audio">Audio</a></li>
-    </ul>
-  </nav>
-</header>
 
-<main class="wrap">
-  <section id="imagen">
-    <h2>Imagen responsiva</h2>
-    <p>Con <code>srcset</code> y <code>sizes</code>, el navegador descarga la versión de 480 px en pantallas pequeñas y la de 800 px en las grandes.</p>
-    <figure>
-      <img
-        src="assets/img/elva-fairy-800w.jpg"
-        srcset="assets/img/elva-fairy-480w.jpg 480w,
-                assets/img/elva-fairy-800w.jpg 800w"
-        sizes="(max-width: 40rem) 100vw, 40rem"
-        width="800" height="533"
-        alt="Niña disfrazada de hada, con alas rosas, sentada en un sofá rojo"
-        loading="lazy">
-      <figcaption>El navegador elige entre una versión de 480 px y otra de 800 px.</figcaption>
-    </figure>
-<pre><code>&lt;img src="elva-fairy-800w.jpg"
-     srcset="elva-fairy-480w.jpg 480w,
-             elva-fairy-800w.jpg 800w"
-     sizes="(max-width: 40rem) 100vw, 40rem"
-     alt="Niña disfrazada de hada"&gt;</code></pre>
-  </section>
-
-  <section id="video">
-    <h2>Vídeo con subtítulos</h2>
-    <p>Dos formatos (WebM y MP4), imagen de portada y pistas de subtítulos en español y catalán. Activa los subtítulos desde los controles del reproductor.</p>
-    <figure>
-      <video controls preload="metadata" poster="assets/img/flower-poster.jpg" width="700" height="658">
-        <source src="assets/video/flower.webm" type="video/webm">
-        <source src="assets/video/flower.mp4" type="video/mp4">
-        <track kind="subtitles" src="assets/subs/flower-es.vtt" srclang="es" label="Español" default>
-        <track kind="subtitles" src="assets/subs/flower-ca.vtt" srclang="ca" label="Català">
-        Tu navegador no admite vídeo HTML. <a href="assets/video/flower.mp4">Descarga el vídeo</a>.
-      </video>
-      <figcaption>Secuencia acelerada de unas flores que se abren.</figcaption>
-    </figure>
-  </section>
-
-  <section id="audio">
-    <h2>Audio</h2>
-    <p>El navegador usa el primer formato que pueda reproducir: OGG o MP3.</p>
-    <audio controls preload="none">
-      <source src="assets/audio/guitar.ogg" type="audio/ogg">
-      <source src="assets/audio/guitar.mp3" type="audio/mpeg">
-      Tu navegador no admite audio HTML. <a href="assets/audio/guitar.mp3">Descarga el audio</a>.
-    </audio>
-  </section>
-</main>
-
-<footer class="wrap">
-  <p>Página estática lista para GitHub Pages.</p>
-</footer>
-</body>
-</html>
+<figure>
+  <img
+    src="assets/img/gd.webp"
+    srcset="assets/img/gd.webp 480w,
+            assets/img/gd.webp 800w"
+    sizes="(max-width: 40rem) 100vw, 40rem"
+    width="800"
+    height="533"
+    alt="Niña disfrazada de hada en un bosque">
+  <figcaption>El navegador elige entre una versión de 480 px y otra de 800 px.</figcaption>
+</figure>
